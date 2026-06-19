@@ -1,0 +1,32 @@
+schema_version = "1.0.0"
+
+[init]
+specs = true
+ci = true
+diagram_style = "mermaid"
+entrypoints = [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "CODEX.md",
+]
+
+[repo]
+product_name = "go-scaling"
+product_summary = "A learning workspace where each module is created as isolated, validated, proof-backed work that turns natural-language intent into runnable Go files and documented scaling knowledge."
+architecture_direction = "microservice"
+product_type = "service_or_library"
+done_criteria = "Done means the existing `go-scaling` repo has a clear learning structure where each module lives as its own root-level directory, begins as runnable code plus written lesson material, and is shaped so it can later be rendered as a web-interface book/page; the workspace is ready for `module-001-hello-go`, validation can be run through the repo’s normal workflow, and no nested project or duplicate repo structure is created."
+primary_languages = ["Go"]
+detected_surfaces = ["go"]
+external_tracker = false
+container_workspaces = true
+mode = "local"
+
+[cloud]
+enabled = false
+experimental = true
+provider = "decapod"
+api_url = "https://api.decapodlabs.com"
+project_id = ""
+repo_id = ""
