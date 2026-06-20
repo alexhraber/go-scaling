@@ -20,10 +20,8 @@
   "unresolved_contradictions": [],
   "deferred_questions": [],
   "constraints": {
-    "forbidden_paths": [
-      ".decapod/"
-    ],
-    "file_touch_budget": 4
+    "forbidden_paths": [],
+    "file_touch_budget": 5
   },
-  "updated_at": "1781915597Z"
+  "updated_at": "1781916621Z"
 }

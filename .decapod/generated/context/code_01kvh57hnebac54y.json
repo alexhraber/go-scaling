@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.1.0",
+  "topic": "module-002-variables-values-and-types",
+  "scope": "interfaces",
+  "task_id": "code_01kvh57hnebac54y",
+  "workunit_id": null,
+  "sources": [
+    {
+      "path": "module-002-variables-values-and-types/README.md",
+      "section": "Module 002: Variables, Values, And Types"
+    }
+  ],
+  "snippets": [
+    {
+      "source_path": "module-002-variables-values-and-types/README.md",
+      "text": "This module introduces the next primitive of a Go program: values have types, and types let programs make promises before they run."
+    }
+  ],
+  "policy": {
+    "risk_tier": "low",
+    "policy_hash": "01a9984c70ab7f37aa4b0b7eb401bec8d289a984f9f0809038e001e9ae51d818",
+    "policy_version": "jit-capsule-policy-v1",
+    "policy_path": ".decapod/generated/policy/context_capsule_policy.json",
+    "repo_revision": "f3f06fff8efb671be00eed80b5a89bd865d28d49"
+  },
+  "capsule_hash": "a27513dbafa36e65b508ee18f2eb27d88462a829d3aaea4a0bf707af371aa942"
+}

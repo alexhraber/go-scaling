@@ -2,7 +2,9 @@
   "task_id": "code_01kvh57hnebac54y",
   "intent_ref": "module-002-variables-values-and-types/README.md",
   "spec_refs": [],
-  "state_refs": [],
+  "state_refs": [
+    ".decapod/generated/context/code_01kvh57hnebac54y.json"
+  ],
   "proof_plan": [
     "./module-002-variables-values-and-types",
     "cd module-002-variables-values-and-types && go build",
