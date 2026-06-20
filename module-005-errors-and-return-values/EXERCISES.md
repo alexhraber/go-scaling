@@ -4,11 +4,11 @@
 
 Change the invalid input passed to `printModuleStatus`.
 
-From the repo root, build and run the exercise image:
+From the repo root, enter this module directory, then build and run the exercise image:
 
 ```bash
-docker build --target runtime-base -t go-scaling:runtime .
-docker build -f module-005-errors-and-return-values/Dockerfile_exercise -t go-scaling:module-005-exercise .
+cd module-005-errors-and-return-values
+docker build -f Dockerfile_exercise -t go-scaling:module-005-exercise .
 docker run --rm go-scaling:module-005-exercise
 ```
 

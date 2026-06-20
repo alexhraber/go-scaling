@@ -81,29 +81,20 @@ fmt.Println("failure:", err)
 
 The caller prints the error and returns early.
 
-## Build The Shared Runtime Base
-
-From the repo root, run:
-
-```bash
-docker build --target runtime-base -t go-scaling:runtime .
-```
-
-This builds the small runtime image that module Dockerfiles use after compiling a Go binary.
-
 ## Build The Module Image
 
-From the repo root, run:
+From the repo root, enter this module directory:
 
 ```bash
-docker build -f module-005-errors-and-return-values/Dockerfile -t go-scaling:module-005 .
+cd module-005-errors-and-return-values
+docker build -f Dockerfile -t go-scaling:module-005 .
 ```
 
-The Dockerfile compiles `module-005-errors-and-return-values/main.go` into a binary and copies that binary into the runtime image.
+The Dockerfile compiles `main.go` into a binary and copies that binary into the shared runtime image.
 
 ## Run The Module Image
 
-From the repo root, run:
+From this module directory, run:
 
 ```bash
 docker run --rm go-scaling:module-005
