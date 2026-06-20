@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "template_version": "scaffold-v3",
-  "generated_at": "1781915635Z",
-  "repo_signal_fingerprint": "8cef1643bc5dacfd857242279eb9a879ef8a1dc3775a76e65735198093d6b771",
+  "generated_at": "1781930154Z",
+  "repo_signal_fingerprint": "4fb90013d855d7c1607df8e4a71b14ada3a38590df896008929a7faa8a441583",
   "files": [
     {
       "path": ".decapod/generated/specs/README.md",
