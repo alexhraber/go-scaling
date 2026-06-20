@@ -9,10 +9,12 @@ import (
 
 type echoRequest struct {
 	Message string `json:"message"`
+	Color string `json:"color"`
 }
 
 type echoResponse struct {
-	Received string `json:"received"`
+	Received string `json:"acked"`
+	Color string `json:"color"`
 }
 
 type errorResponse struct {
@@ -41,11 +43,11 @@ func handleEcho(w http.ResponseWriter, r *http.Request) {
 
 	var request echoRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "invalid json"})
+		writeJSON(w, http.StatusBadRequest, errorResponse{Error: "you sent invalid json"})
 		return
 	}
 
-	writeJSON(w, http.StatusOK, echoResponse{Received: request.Message})
+	writeJSON(w, http.StatusOK, echoResponse{Received: request.Message, Color: request.Color})
 }
 
 func main() {
