@@ -12,16 +12,16 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 
 func handleHealthz(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintln(w, "ok")
+	fmt.Fprintln(w, "good")
 }
 
 func handleModule(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "module 008: routes, handlers, and responses")
+	fmt.Fprintln(w, "Module 008: routes, handlers, and responses")
 }
 
 func handleNotFound(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	fmt.Fprintln(w, "not found")
+	fmt.Fprintln(w, "route not found")
 }
 
 func main() {

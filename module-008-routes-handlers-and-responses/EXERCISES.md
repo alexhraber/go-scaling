@@ -25,6 +25,8 @@ curl http://localhost:8080/module
 curl -i http://localhost:8080/missing
 ```
 
+Observe the output.
+
 When you are done, stop the container deterministically by name:
 
 ```bash
