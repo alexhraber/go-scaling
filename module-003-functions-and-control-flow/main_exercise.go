@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func scoreMessage(name string, score int) string {
-	if score >= 70 {
+	if score >= 85 {
 		return name + " passed"
 	} else {
 		return name + " needs more practice"
@@ -29,7 +29,7 @@ func main() {
 	result = gameResult(team, score)
 	fmt.Println(result)
 
-	for attempt := 1; attempt <= 3; attempt++ {
+	for attempt := 1; attempt <= 10; attempt++ {
 		fmt.Println("attempt", attempt)
 	}
 }
