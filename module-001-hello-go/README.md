@@ -38,29 +38,22 @@ When the compiled binary starts as an operating-system process, Go begins by run
 
 Standard output is the stream where a command-line program normally prints its result.
 
-## Build The Shared Runtime Base
-
-From the repo root, run:
-
-```bash
-docker build --target runtime-base -t go-scaling:runtime .
-```
-
-This builds the small runtime image that module Dockerfiles use after compiling a Go binary.
-
 ## Build The Module Image
 
-From the repo root, run:
+The shared runtime image is built once from the repo root earlier in the learning flow.
+
+From the repo root, enter this module directory:
 
 ```bash
-docker build -f module-001-hello-go/Dockerfile -t go-scaling:module-001 .
+cd module-001-hello-go
+docker build -f Dockerfile -t go-scaling:module-001 .
 ```
 
-The Dockerfile compiles `module-001-hello-go/main.go` into a binary and copies that binary into the runtime image.
+The Dockerfile compiles `main.go` into a binary and copies that binary into the shared runtime image.
 
 ## Run The Module Image
 
-From the repo root, run:
+From this module directory, run:
 
 ```bash
 docker run --rm go-scaling:module-001

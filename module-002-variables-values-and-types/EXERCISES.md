@@ -10,11 +10,13 @@ Print it with `fmt.Println`.
 
 Change the value assigned to `count`.
 
-From the repo root, build and run the exercise image:
+The shared runtime image is built once from the repo root earlier in the learning flow.
+
+From the repo root, enter this module directory, then build and run the exercise image:
 
 ```bash
-docker build --target runtime-base -t go-scaling:runtime .
-docker build -f module-002-variables-values-and-types/Dockerfile_exercise -t go-scaling:module-002-exercise .
+cd module-002-variables-values-and-types
+docker build -f Dockerfile_exercise -t go-scaling:module-002-exercise .
 docker run --rm go-scaling:module-002-exercise
 ```
 

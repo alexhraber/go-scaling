@@ -4,11 +4,13 @@
 
 Add another module name to `modules` in `main_exercise.go`.
 
-From the repo root, build and run the exercise image:
+The shared runtime image is built once from the repo root earlier in the learning flow.
+
+From the repo root, enter this module directory, then build and run the exercise image:
 
 ```bash
-docker build --target runtime-base -t go-scaling:runtime .
-docker build -f module-004-slices-maps-and-structs/Dockerfile_exercise -t go-scaling:module-004-exercise .
+cd module-004-slices-maps-and-structs
+docker build -f Dockerfile_exercise -t go-scaling:module-004-exercise .
 docker run --rm go-scaling:module-004-exercise
 ```
 

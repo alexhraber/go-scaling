@@ -4,11 +4,13 @@
 
 Edit `main_exercise.go` so the program prints a different message.
 
-From the repo root, build and run the exercise image:
+The shared runtime image is built once from the repo root earlier in the learning flow.
+
+From the repo root, enter this module directory, then build and run the exercise image:
 
 ```bash
-docker build --target runtime-base -t go-scaling:runtime .
-docker build -f module-001-hello-go/Dockerfile_exercise -t go-scaling:module-001-exercise .
+cd module-001-hello-go
+docker build -f Dockerfile_exercise -t go-scaling:module-001-exercise .
 docker run --rm go-scaling:module-001-exercise
 ```
 

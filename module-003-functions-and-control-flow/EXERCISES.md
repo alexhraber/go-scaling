@@ -10,11 +10,13 @@ Return a new message from that function in `main_exercise.go` and print it with 
 
 Change the condition inside `scoreMessage`.
 
-From the repo root, build and run the exercise image:
+The shared runtime image is built once from the repo root earlier in the learning flow.
+
+From the repo root, enter this module directory, then build and run the exercise image:
 
 ```bash
-docker build --target runtime-base -t go-scaling:runtime .
-docker build -f module-003-functions-and-control-flow/Dockerfile_exercise -t go-scaling:module-003-exercise .
+cd module-003-functions-and-control-flow
+docker build -f Dockerfile_exercise -t go-scaling:module-003-exercise .
 docker run --rm go-scaling:module-003-exercise
 ```
 
