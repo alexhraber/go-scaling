@@ -9,6 +9,7 @@ import (
 )
 
 type config struct {
+	IP      string
 	Port    string
 	Message string
 }
@@ -18,6 +19,7 @@ type healthResponse struct {
 }
 
 type configResponse struct {
+	IP      string `json:"ip"`
 	Port    string `json:"port"`
 	Message string `json:"message"`
 }
@@ -35,6 +37,7 @@ func handleHealthz(w http.ResponseWriter, r *http.Request) {
 func handleConfig(appConfig config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, configResponse{
+			IP:      appConfig.IP,
 			Port:    appConfig.Port,
 			Message: appConfig.Message,
 		})
@@ -42,8 +45,13 @@ func handleConfig(appConfig config) http.HandlerFunc {
 }
 
 func main() {
-	message := flag.String("message", "hello from configuration", "message returned by /config")
+	message := flag.String("message", "message configuration flag", "message returned by /config")
 	flag.Parse()
+
+	ip := os.Getenv("APP_IP")
+	if ip == "" {
+		ip = "127.0.0.1"
+	}
 
 	port := os.Getenv("APP_PORT")
 	if port == "" {
@@ -51,6 +59,7 @@ func main() {
 	}
 
 	appConfig := config{
+		IP:      ip,
 		Port:    port,
 		Message: *message,
 	}
