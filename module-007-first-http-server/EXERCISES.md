@@ -19,6 +19,8 @@ In a second terminal, call the server:
 curl http://localhost:8080/
 ```
 
+Observe the output.
+
 ## 2. Change The Startup Message
 
 Edit `main_exercise.go` so the startup message printed to standard output is different.
