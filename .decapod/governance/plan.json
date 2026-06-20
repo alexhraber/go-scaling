@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Create Module 003 Functions And Control Flow",
+  "intent": "Add module-003-functions-and-control-flow with exactly main.go, README.md, and EXERCISES.md; teach functions, parameters, return values, if/else, one for loop, and fmt.Println; prove with go run, go build, binary execution, and decapod validate.",
+  "state": "APPROVED",
+  "todo_ids": [
+    "code_01kvh57hnebac54y",
+    "code_01kvh6mypsm1dmpv"
+  ],
+  "proof_hooks": [
+    "cd module-002-variables-values-and-types && go run main.go",
+    "cd module-002-variables-values-and-types && go build",
+    "cd module-003-functions-and-control-flow && go run main.go",
+    "cd module-003-functions-and-control-flow && go build",
+    "decapod validate"
+  ],
+  "unknowns": [],
+  "human_questions": [],
+  "stop_conditions": [],
+  "unresolved_contradictions": [],
+  "deferred_questions": [],
+  "constraints": {
+    "forbidden_paths": [
+      ".decapod/"
+    ],
+    "file_touch_budget": 4
+  },
+  "updated_at": "1781915597Z"
+}

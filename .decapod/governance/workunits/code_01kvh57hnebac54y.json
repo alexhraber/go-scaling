@@ -1,0 +1,35 @@
+{
+  "task_id": "code_01kvh57hnebac54y",
+  "intent_ref": "module-002-variables-values-and-types/README.md",
+  "spec_refs": [],
+  "state_refs": [],
+  "proof_plan": [
+    "./module-002-variables-values-and-types",
+    "cd module-002-variables-values-and-types && go build",
+    "cd module-002-variables-values-and-types && go run main.go",
+    "decapod validate"
+  ],
+  "proof_results": [
+    {
+      "gate": "./module-002-variables-values-and-types",
+      "status": "pass",
+      "artifact_ref": "module-002-variables-values-and-types/main.go"
+    },
+    {
+      "gate": "cd module-002-variables-values-and-types && go build",
+      "status": "pass",
+      "artifact_ref": "module-002-variables-values-and-types/main.go"
+    },
+    {
+      "gate": "cd module-002-variables-values-and-types && go run main.go",
+      "status": "pass",
+      "artifact_ref": "module-002-variables-values-and-types/main.go"
+    },
+    {
+      "gate": "decapod validate",
+      "status": "pass",
+      "artifact_ref": "module-002-variables-values-and-types/README.md"
+    }
+  ],
+  "status": "VERIFIED"
+}
