@@ -82,10 +82,9 @@ A struct groups named fields into one record.
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
-From the repo root, enter this module directory:
+From this directory, build the docker image:
 
 ```bash
-cd module-004-slices-maps-and-structs
 docker build -f Dockerfile -t go-scaling:module-004 .
 ```
 

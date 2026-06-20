@@ -83,10 +83,9 @@ The caller prints the error and returns early.
 
 ## Build The Module Image
 
-From the repo root, enter this module directory:
+From this directory, build the docker image:
 
 ```bash
-cd module-005-errors-and-return-values
 docker build -f Dockerfile -t go-scaling:module-005 .
 ```
 

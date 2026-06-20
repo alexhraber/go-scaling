@@ -62,10 +62,9 @@ The zero value for `string` is empty text. The zero value for `int` is `0`. The 
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
-From the repo root, enter this module directory:
+From this directory, build the docker image:
 
 ```bash
-cd module-002-variables-values-and-types
 docker build -f Dockerfile -t go-scaling:module-002 .
 ```
 

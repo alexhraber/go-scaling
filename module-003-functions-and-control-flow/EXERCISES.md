@@ -12,10 +12,9 @@ Change the condition inside `scoreMessage`.
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
-From the repo root, enter this module directory, then build and run the exercise image:
+From this directory, build and run the exercise image:
 
 ```bash
-cd module-003-functions-and-control-flow
 docker build -f Dockerfile_exercise -t go-scaling:module-003-exercise .
 docker run --rm go-scaling:module-003-exercise
 ```
@@ -27,3 +26,5 @@ Observe whether the `if` branch or the `else` branch runs.
 Change the loop so it prints a different number of attempts.
 
 Build and run the exercise image again and observe the output.
+
+Observe the output.

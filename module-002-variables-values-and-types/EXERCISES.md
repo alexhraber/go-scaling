@@ -12,10 +12,9 @@ Change the value assigned to `count`.
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
-From the repo root, enter this module directory, then build and run the exercise image:
+From this directory, build and run the exercise image:
 
 ```bash
-cd module-002-variables-values-and-types
 docker build -f Dockerfile_exercise -t go-scaling:module-002-exercise .
 docker run --rm go-scaling:module-002-exercise
 ```
@@ -27,3 +26,5 @@ Observe the output.
 Declare a `bool` variable with `var` and no assigned value.
 
 Print it with `fmt.Println`.
+
+Observe the output.

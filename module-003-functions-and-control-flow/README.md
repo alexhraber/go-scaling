@@ -80,10 +80,9 @@ Functions choose reusable behavior. `if` and `else` choose between branches. `fo
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
-From the repo root, enter this module directory:
+From this directory, build the docker image:
 
 ```bash
-cd module-003-functions-and-control-flow
 docker build -f Dockerfile -t go-scaling:module-003 .
 ```
 

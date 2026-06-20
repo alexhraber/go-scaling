@@ -4,10 +4,9 @@
 
 Change the invalid input passed to `printModuleStatus`.
 
-From the repo root, enter this module directory, then build and run the exercise image:
+From this directory, build and run the exercise image:
 
 ```bash
-cd module-005-errors-and-return-values
 docker build -f Dockerfile_exercise -t go-scaling:module-005-exercise .
 docker run --rm go-scaling:module-005-exercise
 ```
@@ -20,8 +19,12 @@ Add another `if` check inside `moduleMessage`.
 
 Return a new error when that rule fails.
 
+Observe the output.
+
 ## 3. Add Another Successful Input And Print The Returned Message
 
 Add another valid call to `printModuleStatus`.
 
 Build and run the exercise image again to observe the success output.
+
+Observe the output.

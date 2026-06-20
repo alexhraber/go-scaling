@@ -42,10 +42,9 @@ Standard output is the stream where a command-line program normally prints its r
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
-From the repo root, enter this module directory:
+From this directory, build the docker image:
 
 ```bash
-cd module-001-hello-go
 docker build -f Dockerfile -t go-scaling:module-001 .
 ```
 

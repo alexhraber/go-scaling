@@ -7,7 +7,11 @@ import (
 
 func moduleMessage(module string, score int) (string, error) {
 	if module == "" {
-		return "", errors.New("module name is required")
+		return "", errors.New("module name is required, but empty")
+	}
+
+	if len(module) >= 10 {
+		return "", errors.New("use a shorter module name")
 	}
 
 	if score < 0 {
