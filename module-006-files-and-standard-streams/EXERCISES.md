@@ -2,7 +2,7 @@
 
 ## 1. Change The Standard Input Text
 
-Edit `main_exercise.go` so the program handles different stdin text.
+Edit `main_exercise.go` so the program handles different stdin text. (hint: does the script need to change?)
 
 The shared runtime image is built once from the repo root earlier in the learning flow.
 
@@ -20,6 +20,8 @@ Observe how the stdout file output changes.
 Edit `main_exercise.go` and change the temporary file path.
 
 Rebuild and rerun the exercise image to confirm the program still writes the file and reads it back.
+
+Observe the output.
 
 ## 3. Add More Stream Output
 

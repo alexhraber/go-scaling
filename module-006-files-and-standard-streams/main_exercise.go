@@ -9,6 +9,8 @@ import (
 func main() {
 	fmt.Fprintln(os.Stdout, "stdout: module 006 is running")
 	fmt.Fprintln(os.Stderr, "stderr: this is an error-style message")
+	fmt.Fprintln(os.Stdout, "stdout: still running")
+	fmt.Fprintln(os.Stderr, "stderr: but there is still an error")
 
 	input, err := io.ReadAll(os.Stdin)
 	if err != nil {
@@ -16,7 +18,7 @@ func main() {
 		return
 	}
 
-	notePath := "/tmp/module-006-note.txt"
+	notePath := "/etc/module-006-note.txt"
 	if err := os.WriteFile(notePath, input, 0o644); err != nil {
 		fmt.Fprintln(os.Stderr, "failed to write file:", err)
 		return
