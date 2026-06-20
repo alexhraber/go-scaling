@@ -96,7 +96,7 @@ The Dockerfile compiles `main.go` into a binary and copies that binary into the 
 From this module directory, run:
 
 ```bash
-docker run --rm --name go-scaling-module-007 -p 8080:8080 go-scaling:module-007
+docker run --rm -p 8080:8080 go-scaling:module-007
 ```
 
 This keeps running because the server is waiting for requests.
@@ -105,12 +105,6 @@ In a second terminal, call the server:
 
 ```bash
 curl http://localhost:8080/
-```
-
-When you are done, stop the container so port `8080` is free again:
-
-```bash
-docker stop go-scaling-module-007
 ```
 
 ## What Changed From Module 006

@@ -10,19 +10,13 @@ From this directory, build and run the exercise image:
 
 ```bash
 docker build -f Dockerfile_exercise -t go-scaling:module-007-exercise .
-docker run --rm --name go-scaling-module-007-exercise -p 8080:8080 go-scaling:module-007-exercise
+docker run --rm -p 8080:8080 go-scaling:module-007-exercise
 ```
 
 In a second terminal, call the server:
 
 ```bash
 curl http://localhost:8080/
-```
-
-When you are done, stop the container so port `8080` is free again:
-
-```bash
-docker stop go-scaling-module-007-exercise
 ```
 
 ## 2. Change The Startup Message
