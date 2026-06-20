@@ -2,9 +2,17 @@
 
 ## 1. Add Another Value To The Slice And Print It
 
-Add another module name to `modules`.
+Add another module name to `modules` in `main_exercise.go`.
 
-Run the program again and observe the printed list.
+From the repo root, build and run the exercise image:
+
+```bash
+docker build --target runtime-base -t go-scaling:runtime .
+docker build -f module-004-slices-maps-and-structs/Dockerfile_exercise -t go-scaling:module-004-exercise .
+docker run --rm go-scaling:module-004-exercise
+```
+
+Observe the printed list.
 
 ## 2. Add Another Key/Value Pair To The Map And Read It
 

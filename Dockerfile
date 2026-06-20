@@ -1,25 +1,30 @@
-# Decapod Workspace Dockerfile
-# Auto-generated for reproducible agent environments
+# syntax=docker/dockerfile:1
 
-FROM rust:1.91-slim
+ARG GO_VERSION=1.25.8
+ARG MODULE=module-004-slices-maps-and-structs
+ARG ENTRYPOINT_FILE=main.go
 
-# Install essential tools
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    build-essential \
-    pkg-config \
-    libsqlite3-dev \
-    libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
+FROM gcr.io/distroless/static-debian12:nonroot AS runtime-base
 
-# Install decapod
-RUN cargo install decapod
+WORKDIR /app
+USER nonroot:nonroot
 
-# Set up workspace
-WORKDIR /workspace
-ENV DECAPOD_IN_CONTAINER=true
-ENV DECAPOD_WORKSPACE_IMAGE=decapod-workspace
+FROM golang:${GO_VERSION}-bookworm AS build
 
-# Default command
-CMD ["/bin/bash"]
+ARG MODULE
+ARG ENTRYPOINT_FILE
+ARG TARGETOS=linux
+ARG TARGETARCH=amd64
+
+WORKDIR /src
+
+COPY go.mod ./
+COPY ${MODULE}/${ENTRYPOINT_FILE} ./main.go
+
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} \
+    go build -trimpath -ldflags="-s -w" -o /out/app ./main.go
+
+FROM runtime-base AS app
+
+COPY --from=build /out/app /app/app
+ENTRYPOINT ["/app/app"]

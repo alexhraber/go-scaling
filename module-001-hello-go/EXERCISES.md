@@ -2,30 +2,24 @@
 
 ## 1. Change The Printed Message
 
-Edit `main.go` so the program prints a different message.
+Edit `main_exercise.go` so the program prints a different message.
 
-Run it again:
+From the repo root, build and run the exercise image:
 
 ```bash
-go run main.go
+docker build --target runtime-base -t go-scaling:runtime .
+docker build -f module-001-hello-go/Dockerfile_exercise -t go-scaling:module-001-exercise .
+docker run --rm go-scaling:module-001-exercise
 ```
 
 ## 2. Print Two Lines
 
-Add a second `fmt.Println(...)` call inside `main`.
+Add a second `fmt.Println(...)` call inside `main_exercise.go`.
 
-Run it again and confirm that the program prints two lines.
+Build and run the exercise image again and confirm that the program prints two lines.
 
-## 3. Build And Run The Binary
+## 3. Change The Exercise Image Output
 
-Build the binary:
+Change the text again in `main_exercise.go`.
 
-```bash
-go build
-```
-
-Run the binary directly:
-
-```bash
-./module-001-hello-go
-```
+Build and run the exercise image again to observe the new output.

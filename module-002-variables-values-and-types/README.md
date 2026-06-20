@@ -58,33 +58,35 @@ When a variable is declared with `var` but no value, Go gives it a zero value.
 
 The zero value for `string` is empty text. The zero value for `int` is `0`. The zero value for `bool` is `false`.
 
-## Run The Source File
+## Build The Shared Runtime Base
 
-From this directory, run:
-
-```bash
-go run main.go
-```
-
-`go run` compiles the source code and immediately runs the resulting program.
-
-## Build The Binary
-
-From this directory, run:
+From the repo root, run:
 
 ```bash
-go build
+docker build --target runtime-base -t go-scaling:runtime .
 ```
 
-`go build` compiles the package and writes an executable binary named `module-002-variables-values-and-types`.
+This builds the small runtime image that module Dockerfiles use after compiling a Go binary.
 
-## Run The Binary
+## Build The Module Image
 
-After building, run:
+From the repo root, run:
 
 ```bash
-./module-002-variables-values-and-types
+docker build -f module-002-variables-values-and-types/Dockerfile -t go-scaling:module-002 .
 ```
+
+The Dockerfile compiles `module-002-variables-values-and-types/main.go` into a binary and copies that binary into the runtime image.
+
+## Run The Module Image
+
+From the repo root, run:
+
+```bash
+docker run --rm go-scaling:module-002
+```
+
+The container starts the binary as an operating-system process and prints the program output.
 
 ## What Changed From Module 001
 

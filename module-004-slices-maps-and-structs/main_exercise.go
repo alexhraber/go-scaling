@@ -12,7 +12,7 @@ type ModuleStatus struct {
 func main() {
 	modules := []string{"hello go", "variables and types", "functions and control flow"}
 	modules = append(modules, "slices maps and structs")
-	modules = append(modules, "erros and return values")
+	modules = append(modules, "errors and return values")
 
 	fmt.Println("modules")
 	for _, module := range modules {
@@ -23,7 +23,7 @@ func main() {
 		"hello go":                   1,
 		"variables and types":        2,
 		"functions and control flow": 3,
-		"slices maps and structs": 4,
+		"slices maps and structs":    4,
 	}
 
 	fmt.Println("function score", scores["functions and control flow"])

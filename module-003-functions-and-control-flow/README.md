@@ -76,33 +76,35 @@ Control flow is the order in which code runs.
 
 Functions choose reusable behavior. `if` and `else` choose between branches. `for` repeats a block of code.
 
-## Run The Source File
+## Build The Shared Runtime Base
 
-From this directory, run:
-
-```bash
-go run main.go
-```
-
-`go run` compiles the source code and immediately runs the resulting program.
-
-## Build The Binary
-
-From this directory, run:
+From the repo root, run:
 
 ```bash
-go build
+docker build --target runtime-base -t go-scaling:runtime .
 ```
 
-`go build` compiles the package and writes an executable binary named `module-003-functions-and-control-flow`.
+This builds the small runtime image that module Dockerfiles use after compiling a Go binary.
 
-## Run The Binary
+## Build The Module Image
 
-After building, run:
+From the repo root, run:
 
 ```bash
-./module-003-functions-and-control-flow
+docker build -f module-003-functions-and-control-flow/Dockerfile -t go-scaling:module-003 .
 ```
+
+The Dockerfile compiles `module-003-functions-and-control-flow/main.go` into a binary and copies that binary into the runtime image.
+
+## Run The Module Image
+
+From the repo root, run:
+
+```bash
+docker run --rm go-scaling:module-003
+```
+
+The container starts the binary as an operating-system process and prints the program output.
 
 ## What Changed From Module 002
 

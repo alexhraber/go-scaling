@@ -78,33 +78,35 @@ A map groups values by key.
 
 A struct groups named fields into one record.
 
-## Run The Source File
+## Build The Shared Runtime Base
 
-From this directory, run:
-
-```bash
-go run main.go
-```
-
-`go run` compiles the source code and immediately runs the resulting program.
-
-## Build The Binary
-
-From this directory, run:
+From the repo root, run:
 
 ```bash
-go build
+docker build --target runtime-base -t go-scaling:runtime .
 ```
 
-`go build` compiles the package and writes an executable binary named `module-004-slices-maps-and-structs`.
+This builds the small runtime image that module Dockerfiles use after compiling a Go binary.
 
-## Run The Binary
+## Build The Module Image
 
-After building, run:
+From the repo root, run:
 
 ```bash
-./module-004-slices-maps-and-structs
+docker build -f module-004-slices-maps-and-structs/Dockerfile -t go-scaling:module-004 .
 ```
+
+The Dockerfile compiles `module-004-slices-maps-and-structs/main.go` into a binary and copies that binary into the runtime image.
+
+## Run The Module Image
+
+From the repo root, run:
+
+```bash
+docker run --rm go-scaling:module-004
+```
+
+The container starts the binary as an operating-system process and prints the program output.
 
 ## What Changed From Module 003
 

@@ -2,7 +2,7 @@
 
 ## 1. Add Another `string` Variable And Print It
 
-Declare another `string` variable in `main.go`.
+Declare another `string` variable in `main_exercise.go`.
 
 Print it with `fmt.Println`.
 
@@ -10,7 +10,15 @@ Print it with `fmt.Println`.
 
 Change the value assigned to `count`.
 
-Run the program again and observe the output.
+From the repo root, build and run the exercise image:
+
+```bash
+docker build --target runtime-base -t go-scaling:runtime .
+docker build -f module-002-variables-values-and-types/Dockerfile_exercise -t go-scaling:module-002-exercise .
+docker run --rm go-scaling:module-002-exercise
+```
+
+Observe the output.
 
 ## 3. Declare A `bool` Zero Value With `var` And Print It
 
