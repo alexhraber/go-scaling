@@ -22,6 +22,10 @@ type healthResponse struct {
 	Status string `json:"status"`
 }
 
+type versionResponse struct {
+	Version string `json:"version"`
+}
+
 type configResponse struct {
 	Port    string `json:"port"`
 	Message string `json:"message"`
@@ -41,6 +45,13 @@ func handleHealthz(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	status := http.StatusOK
 	writeJSON(w, status, healthResponse{Status: "ok"})
+	logRequest(r, status, start)
+}
+
+func handleVersion(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	status := http.StatusOK
+	writeJSON(w, status, versionResponse{Version: "v0.0.1"})
 	logRequest(r, status, start)
 }
 
@@ -71,6 +82,7 @@ func main() {
 	}
 
 	http.HandleFunc("/healthz", handleHealthz)
+	http.HandleFunc("/version", handleVersion)
 	http.HandleFunc("/config", handleConfig(appConfig))
 
 	address := ":" + appConfig.Port
@@ -78,7 +90,7 @@ func main() {
 	serverErr := make(chan error, 1)
 
 	go func() {
-		log.Printf("event=startup address=%s routes=/healthz,/config", address)
+		log.Printf("event=starting address=%s routes=/healthz,/version,/config", address)
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			serverErr <- err
 			return
@@ -91,8 +103,8 @@ func main() {
 
 	select {
 	case <-shutdownSignal.Done():
-		log.Printf("event=shutdown_start")
-		shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		log.Printf("event=shutting_down")
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 		defer cancel()
 
 		if err := server.Shutdown(shutdownCtx); err != nil {
@@ -105,7 +117,7 @@ func main() {
 			return
 		}
 
-		log.Printf("event=shutdown_complete")
+		log.Printf("event=goodbye")
 	case err := <-serverErr:
 		if err != nil {
 			log.Printf("event=server_failed error=%v", err)
