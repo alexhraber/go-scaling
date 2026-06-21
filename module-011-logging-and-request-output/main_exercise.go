@@ -23,21 +23,27 @@ type configResponse struct {
 	Message string `json:"message"`
 }
 
+type versionResponse struct {
+	Version	string `json:"version"`
+}
+
 func writeJSON(w http.ResponseWriter, status int, value any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(value)
 }
 
-func logRequest(r *http.Request, status int, start time.Time) {
-	log.Printf("method=%s path=%s status=%d duration=%s", r.Method, r.URL.Path, status, time.Since(start))
+func logRequest(r *http.Request, message string, status int, start time.Time) {
+	log.Printf("method=%s path=%s message=%q status=%d duration=%s", r.Method, r.URL.Path, message, status, time.Since(start))
 }
 
-func handleHealthz(w http.ResponseWriter, r *http.Request) {
-	start := time.Now()
-	status := http.StatusOK
-	writeJSON(w, status, healthResponse{Status: "ok"})
-	logRequest(r, status, start)
+func handleHealthz(appConfig config) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		status := http.StatusOK
+		writeJSON(w, status, healthResponse{Status: "ok"})
+		logRequest(r, appConfig.Message, status, start)
+	}
 }
 
 func handleConfig(appConfig config) http.HandlerFunc {
@@ -48,7 +54,16 @@ func handleConfig(appConfig config) http.HandlerFunc {
 			Port:    appConfig.Port,
 			Message: appConfig.Message,
 		})
-		logRequest(r, status, start)
+		logRequest(r, appConfig.Message, status, start)
+	}
+}
+
+func handleVersion(appConfig config) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		status := http.StatusOK
+		writeJSON(w, status, versionResponse{Version: "v0.0.1"})
+		logRequest(r, appConfig.Message, status, start)
 	}
 }
 
@@ -66,8 +81,9 @@ func main() {
 		Message: *message,
 	}
 
-	http.HandleFunc("/healthz", handleHealthz)
+	http.HandleFunc("/healthz", handleHealthz(appConfig))
 	http.HandleFunc("/config", handleConfig(appConfig))
+	http.HandleFunc("/version", handleVersion(appConfig))
 
 	address := ":" + appConfig.Port
 	log.Printf("event=startup address=%s routes=/healthz,/config", address)
