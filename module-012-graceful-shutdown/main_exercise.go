@@ -51,7 +51,7 @@ func handleHealthz(w http.ResponseWriter, r *http.Request) {
 func handleVersion(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	status := http.StatusOK
-	writeJSON(w, status, versionResponse{Version: "v0.0.1"})
+	writeJSON(w, status, versionResponse{Version: "v1.0.1"})
 	logRequest(r, status, start)
 }
 
