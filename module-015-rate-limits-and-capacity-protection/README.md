@@ -293,28 +293,42 @@ func main() {
 		WriteTimeout:      5 * time.Second,
 		IdleTimeout:       30 * time.Second,
 	}
+	serverErr := make(chan error, 1)
 
 	go func() {
 		log.Printf("event=startup address=%s routes=/healthz,/work,/metrics", address)
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Printf("event=server_failed error=%v", err)
+			serverErr <- err
+			return
 		}
+		serverErr <- nil
 	}()
 
 	shutdownSignal, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	<-shutdownSignal.Done()
-	log.Printf("event=shutdown_start")
-	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+	select {
+	case <-shutdownSignal.Done():
+		log.Printf("event=shutdown_start")
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
 
-	if err := server.Shutdown(shutdownCtx); err != nil {
-		log.Printf("event=shutdown_failed error=%v", err)
-		return
+		if err := server.Shutdown(shutdownCtx); err != nil {
+			log.Printf("event=shutdown_failed error=%v", err)
+			return
+		}
+
+		if err := <-serverErr; err != nil {
+			log.Printf("event=server_failed error=%v", err)
+			return
+		}
+
+		log.Printf("event=shutdown_complete")
+	case err := <-serverErr:
+		if err != nil {
+			log.Printf("event=server_failed error=%v", err)
+		}
 	}
-
-	log.Printf("event=shutdown_complete")
 }
 ```
 

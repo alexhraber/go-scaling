@@ -1,0 +1,21 @@
+# syntax=docker/dockerfile:1
+
+ARG GO_VERSION=1.25.8
+ARG RUNTIME_IMAGE=go-scaling:runtime
+
+FROM golang:${GO_VERSION}-bookworm AS build
+
+WORKDIR /src
+
+COPY main.go ./main.go
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -trimpath -ldflags="-s -w" -o /out/app ./main.go
+
+FROM ${RUNTIME_IMAGE}
+
+EXPOSE 8080
+
+USER root
+COPY --from=build /out/app /app/app
+ENTRYPOINT ["/app/app"]
