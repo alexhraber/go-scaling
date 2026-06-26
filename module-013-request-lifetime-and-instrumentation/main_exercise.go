@@ -19,13 +19,19 @@ type config struct {
 
 type metrics struct {
 	mu                 sync.Mutex
-	requestsTotal      int
-	slowStartedTotal   int
-	slowCompletedTotal int
-	slowCanceledTotal  int
+	requestsTotal        int
+	healthRequestsTotal  int
+	readyRequestsTotal   int
+	slowStartedTotal     int
+	slowCompletedTotal   int
+	slowCanceledTotal    int
 }
 
 type healthResponse struct {
+	Status string `json:"status"`
+}
+
+type readyResponse struct {
 	Status string `json:"status"`
 }
 
@@ -34,10 +40,12 @@ type slowResponse struct {
 }
 
 type metricsResponse struct {
-	RequestsTotal      int `json:"requests_total"`
-	SlowStartedTotal   int `json:"slow_started_total"`
-	SlowCompletedTotal int `json:"slow_completed_total"`
-	SlowCanceledTotal  int `json:"slow_canceled_total"`
+	RequestsTotal        int `json:"requests_total"`
+	HealthRequestsTotal  int `json:"health_requests_total"`
+	ReadyRequestsTotal   int `json:"ready_requests_total"`
+	SlowStartedTotal     int `json:"slow_started_total"`
+	SlowCompletedTotal   int `json:"slow_completed_total"`
+	SlowCanceledTotal    int `json:"slow_canceled_total"`
 }
 
 func writeJSON(w http.ResponseWriter, status int, value any) {
@@ -54,6 +62,18 @@ func incrementRequests(appMetrics *metrics) {
 	appMetrics.mu.Lock()
 	defer appMetrics.mu.Unlock()
 	appMetrics.requestsTotal++
+}
+
+func incrementHealthRequests(appMetrics *metrics) {
+	appMetrics.mu.Lock()
+	defer appMetrics.mu.Unlock()
+	appMetrics.healthRequestsTotal++
+}
+
+func incrementReadyRequests(appMetrics *metrics) {
+	appMetrics.mu.Lock()
+	defer appMetrics.mu.Unlock()
+	appMetrics.readyRequestsTotal++
 }
 
 func incrementSlowStarted(appMetrics *metrics) {
@@ -79,10 +99,12 @@ func snapshotMetrics(appMetrics *metrics) metricsResponse {
 	defer appMetrics.mu.Unlock()
 
 	return metricsResponse{
-		RequestsTotal:      appMetrics.requestsTotal,
-		SlowStartedTotal:   appMetrics.slowStartedTotal,
-		SlowCompletedTotal: appMetrics.slowCompletedTotal,
-		SlowCanceledTotal:  appMetrics.slowCanceledTotal,
+		RequestsTotal:        appMetrics.requestsTotal,
+		HealthRequestsTotal:  appMetrics.healthRequestsTotal,
+		ReadyRequestsTotal:   appMetrics.readyRequestsTotal,
+		SlowStartedTotal:     appMetrics.slowStartedTotal,
+		SlowCompletedTotal:   appMetrics.slowCompletedTotal,
+		SlowCanceledTotal:    appMetrics.slowCanceledTotal,
 	}
 }
 
@@ -91,6 +113,18 @@ func handleHealthz(appMetrics *metrics) http.HandlerFunc {
 		start := time.Now()
 		status := http.StatusOK
 		incrementRequests(appMetrics)
+		incrementHealthRequests(appMetrics)
+		writeJSON(w, status, healthResponse{Status: "ok"})
+		logRequest(r, status, start)
+	}
+}
+
+func handleReadyz(appMetrics *metrics) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		status := http.StatusOK
+		incrementRequests(appMetrics)
+		incrementReadyRequests(appMetrics)
 		writeJSON(w, status, healthResponse{Status: "ok"})
 		logRequest(r, status, start)
 	}
@@ -103,7 +137,7 @@ func handleSlow(appMetrics *metrics) http.HandlerFunc {
 		incrementSlowStarted(appMetrics)
 		log.Printf("event=slow_work_start path=/slow")
 
-		timer := time.NewTimer(5 * time.Second)
+		timer := time.NewTimer(3 * time.Second)
 		defer timer.Stop()
 
 		select {
@@ -141,6 +175,7 @@ func main() {
 	appMetrics := &metrics{}
 
 	http.HandleFunc("/healthz", handleHealthz(appMetrics))
+	http.HandleFunc("/readyz", handleReadyz(appMetrics))
 	http.HandleFunc("/slow", handleSlow(appMetrics))
 	http.HandleFunc("/metrics", handleMetrics(appMetrics))
 
@@ -149,7 +184,7 @@ func main() {
 	serverErr := make(chan error, 1)
 
 	go func() {
-		log.Printf("event=startup address=%s routes=/healthz,/slow,/metrics", address)
+		log.Printf("event=startup address=%s routes=/healthz,/readyz,/slow,/metrics", address)
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			serverErr <- err
 			return
