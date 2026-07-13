@@ -1,5 +1,7 @@
 # Go Scaling
 
+[![🦀 Decapod](https://img.shields.io/badge/🦀%20Decapod-v0.66.3-dc2626)](https://github.com/DecapodLabs/decapod)
+
 Go Scaling is a small, module-by-module learning repo for Go.
 
 Each module is a root-level directory with a tiny runnable program, lesson text, exercises, and Dockerfiles. The lessons build from first principles: source code becomes a compiled binary, and the binary becomes an operating-system process.
