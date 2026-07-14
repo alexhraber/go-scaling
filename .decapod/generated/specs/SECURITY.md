@@ -83,7 +83,7 @@ Generated security specs should document the active trust boundaries exposed by 
 <!-- decapod:codebase-attestation:start -->
 ## Codebase Attestation
 
-- Repository signal fingerprint: `dffa4e466e1010afa0c48b8b3e0f818d52daa0aaf8e42bb79f99a1c62045c7db`
+- Repository signal fingerprint: `7f39d024b4d4a953b1103d3220350448b84f1b45a66d5158bf6cc4bb3d3fd292`
 - Significant implementation surfaces: `.github/` (1 files), `Dockerfile/` (1 files), `README.md/` (1 files), `go.mod/` (1 files), `module-001-hello-go/` (2 files), `module-002-variables-values-and-types/` (2 files), `module-003-functions-and-control-flow/` (2 files), `module-004-slices-maps-and-structs/` (2 files), `module-005-errors-and-return-values/` (2 files), `module-006-files-and-standard-streams/` (2 files), `module-007-first-http-server/` (2 files), `module-008-routes-handlers-and-responses/` (2 files), `module-009-json-request-response/` (2 files), `module-010-configuration-env-vars-flags/` (2 files), `module-011-logging-and-request-output/` (2 files), `module-012-graceful-shutdown/` (2 files), `module-013-request-lifetime-and-instrumentation/` (2 files), `module-014-server-timeouts-and-deadlines/` (2 files), `module-015-rate-limits-and-capacity-protection/` (2 files), `module-016-bearer-token-encrypted-persistence/` (2 files)
 - Refreshed from the current codebase by `decapod specs.refresh`
 <!-- decapod:codebase-attestation:end -->
